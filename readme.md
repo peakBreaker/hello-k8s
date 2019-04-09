@@ -3,6 +3,9 @@
 This repo is my notes and interpretation of how to get a project up and running
 on kubernetes in google cloud, and should serve as a reference to myself.
 
+More conceptual stuff to give a better understanding of kubernetes is provided
+in the [on kubernetes](./on_kubernetes.md) document.
+
 ## App
 
 The repo contains a simple webapp in the app directory.  This webapp is
@@ -13,17 +16,49 @@ following command:
 
 Run the docker container:
 
-`$ docker run -p 80:8000 --rm hello_k8s:latest`
+`$ docker run -p 80:8000 --rm eu.gcr.io/<myproject>/k8s_tests/hello_k8s:latest`
 
 Then go to localhost and you should see hello world served from the container
 
 ![hello_world_container](./hello_world.png)
 
+Before moving on we must push the created image to the google container
+registry:
+
+`$ gcloud auth configure-docker # Akin to docker login`
+`$ docker push eu.gcr.io/<myproject>/k8s_tests/hello_k8s:latest`
 
 ## Running on minikube
 
+TODO: Will be added later
+
 ## K8s cluster on gcloud
 
-### Setup on gcloud
+Google Kuberenetes Engine (GKE) is the managed Kubernetes solution by google, which
+we will be using to deploy our app. For my purposes it is well enough for
+production grade projects.
+
+Prereqs here as gcloud SDK with the kubectl component.
+
+*First we create a cluster:*
+
+This can be done through the gcloud console.  For this tut we are creating the
+"my first cluster" cluster template provided by google. Creating cluster is
+found under `Kubernetes engine -> Create Cluster`
+
+![my_first_cluster](my_first_cluster_gcloud_1.png)
+
+*Connecting to cluster*
+
+To connect to cluster, we can view our cluster in Kubernetes engine, and click
+`connect`. Gcloud then gives ut a command to run locally to get access to the
+cluster with kubectl:
+
+`$ gcloud container clusters get-credentials <cluster> --zone
+<zone> --project <project>`
+
+From that point we have full access with kubectl:
+
+`$ kubectl get nodes
 
 ### Deploy the app
