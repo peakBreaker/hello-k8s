@@ -77,6 +77,15 @@ cluster with kubectl:
 
 From that point we have full access with kubectl:
 
-`$ kubectl get nodes
+`$ kubectl config current-context`
 
 ### Deploy the app
+
+1. We can use the same deployment as earlier: `$ kubectl apply -f
+   my_deployment.yaml`
+2. Use the cloud service to get a connection to the service. Since we're
+   using GCP, we want the deployment to be behind an external load balancer.
+   This is defined in the service. `$ kubectl apply -f my_service_cloud.yaml`
+3. The load balancer IP should then route us to our hello world application.
+   Set up a static IP and register it with your DNS registrar, and boom - you
+   should have a scalable app deployment on kubernetes!
