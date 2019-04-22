@@ -30,7 +30,16 @@ registry:
 
 ## Running on minikube
 
-TODO: Will be added later
+Requires that you have installed minikube and kubectl locally. Also requires virtualization drivers.  See the tutorials on [kubernetes](https://kubernetes.io/docs/setup/minikube/#quickstart) on this.
+1. Start minikube: `$ minikube start -p mycluster`
+2. Check kubectl context  `$ kubectl config current-context` -> Should output "mycluster"
+
+Now you have a local cluster to play with.  To deploy the hello world app to the cluster with an appropriate service:
+
+3. Deployment: TODO
+4. Service: TODO
+
+These lasts steps can also be used on a production cluster to deploy our app.
 
 ## K8s cluster on gcloud
 
