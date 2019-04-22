@@ -12,7 +12,7 @@ The repo contains a simple webapp in the app directory.  This webapp is
 dockerized. `cd` into the app dir and build the docker container using the 
 following command:
 
-`$ docker build -t hello_k8s:latest .`
+`$ docker build -t eu.gcr.io/<myproject>/k8s_tests/hello_k8s:latest .`
 
 Run the docker container:
 
@@ -28,6 +28,9 @@ registry:
 `$ gcloud auth configure-docker # Akin to docker login`
 `$ docker push eu.gcr.io/<myproject>/k8s_tests/hello_k8s:latest`
 
+I have already done this, and have this test image publically available for the
+tutorial
+
 ## Running on minikube
 
 Requires that you have installed minikube and kubectl locally. Also requires virtualization drivers.  See the tutorials on [kubernetes](https://kubernetes.io/docs/setup/minikube/#quickstart) on this.
@@ -36,10 +39,16 @@ Requires that you have installed minikube and kubectl locally. Also requires vir
 
 Now you have a local cluster to play with.  To deploy the hello world app to the cluster with an appropriate service:
 
-3. Deployment: TODO
-4. Service: TODO
+3. Deployment: `$ kubectl apply -f my_deployement.yaml`
+4. Service: `$ kubectl apply -f my_service.yaml`
+5. Get the node ip: `$ minikube ip -p mycluster`
+6. Get the node port (which maps to the service): `kubectl get services
+   my-service`
+7. Visit the service in your browser on `<Node IP>:<NodePort>`
 
-These lasts steps can also be used on a production cluster to deploy our app.
+These lasts steps can also be used on a production cluster to deploy our app,
+except in production we would use an ingress or loadbalancer service rather
+than a NodePort.
 
 ## K8s cluster on gcloud
 
